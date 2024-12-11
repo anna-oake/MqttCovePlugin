@@ -61,6 +61,9 @@ namespace MqttCovePlugin {
 
 		public override void onPlayerJoin(WFPlayer player) {
 			base.onPlayerJoin(player);
+			if (ParentServer.isPlayerBanned(player.SteamId)) {
+				return;
+			}
 			_mqtt?.PublishJoin(ConvertPlayer(player));
 			_mqtt?.PublishPlayers(GetPlayers());
 		}
@@ -109,7 +112,7 @@ namespace MqttCovePlugin {
 		}
 
 		private IEnumerable<MqttPlayer> GetPlayers() {
-			return GetAllPlayers().Select(ConvertPlayer);
+			return GetAllPlayers().Where(x => !ParentServer.isPlayerBanned(x.SteamId)).Select(ConvertPlayer);
 		}
 
 		private MqttPlayer ConvertPlayer(WFPlayer player) {
