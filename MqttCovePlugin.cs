@@ -70,8 +70,11 @@ namespace MqttCovePlugin {
 
 		public override void onPlayerLeave(WFPlayer player) {
 			base.onPlayerLeave(player);
-			_mqtt?.PublishLeave(ConvertPlayer(player));
 			_mqtt?.PublishPlayers(GetPlayers().Where(p => p.SteamID != player.SteamId.m_SteamID));
+			if (ParentServer.isPlayerBanned(player.SteamId)) {
+				return;
+			}
+			_mqtt?.PublishLeave(ConvertPlayer(player));
 		}
 
 		public override void onChatMessage(WFPlayer sender, string message) {
