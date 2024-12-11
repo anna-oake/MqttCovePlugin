@@ -1,0 +1,12 @@
+.DS_Store
+
+.vscode
+
+bin
+obj
+lib
+.vs
+
+FodyWeavers.xsd
+
+publish
