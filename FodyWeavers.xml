@@ -3,6 +3,7 @@
   <Costura>
     <IncludeAssemblies>
       MQTTnet
+      SixLabors.ImageSharp
     </IncludeAssemblies>
   </Costura>
 </Weavers>

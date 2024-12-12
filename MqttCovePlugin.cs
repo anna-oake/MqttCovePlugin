@@ -111,7 +111,9 @@ namespace MqttCovePlugin {
 
 		private void HandleRequestChalk() {
 			List<ChalkCanvas> chalkData = [.. ParentServer.chalkCanvas];
-			_mqtt?.PublishChalk(chalkData.Select(ConvertChalkCanvas));
+			foreach (var canvas in chalkData) {
+				_mqtt?.PublishChalk(canvas.canvasID, canvas.ToPNG());
+			}
 		}
 
 		private IEnumerable<MqttPlayer> GetPlayers() {
@@ -134,13 +136,6 @@ namespace MqttCovePlugin {
 				CodeOnly = server.codeOnly,
 				FriendsOnly = server.friendsOnly,
 				AgeRestricted = server.ageRestricted
-			};
-		}
-
-		private MqttChalkCanvas ConvertChalkCanvas(ChalkCanvas c) {
-			return new MqttChalkCanvas {
-				ID = c.canvasID,
-				Image = c.chalkImage.Select(x => new float[3] { x.Key.x, x.Key.y, x.Value })
 			};
 		}
 	}

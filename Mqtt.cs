@@ -132,10 +132,10 @@ public class Mqtt {
 		publishEvent(new BanEvent(player));
 	}
 
-	public void PublishChalk(IEnumerable<MqttChalkCanvas> canvases) {
+	public void PublishChalk(long canvasID, byte[] canvas) {
 		var msg = new MqttApplicationMessageBuilder()
-			.WithTopic(_prefix + "/chalk")
-			.WithPayload(JsonSerializer.Serialize(canvases, SerializeOptions))
+			.WithTopic(_prefix + $"/chalk/{canvasID}")
+			.WithPayload(canvas)
 			.Build();
 		_client.PublishAsync(msg, CancellationToken.None).Wait();
 	}
@@ -214,9 +214,4 @@ public class MqttServerInfo {
 	public required bool CodeOnly { get; set; }
 	public required bool FriendsOnly { get; set; }
 	public required bool AgeRestricted { get; set; }
-}
-
-public class MqttChalkCanvas {
-	public required long ID { get; set; }
-	public required IEnumerable<float[]> Image { get; set; }
 }

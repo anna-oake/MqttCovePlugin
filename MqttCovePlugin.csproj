@@ -36,6 +36,7 @@
     <PackageReference Include="MQTTnet" Version="4.3.7.1207">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     <PackageReference Include="Steamworks.NET" Version="2024.8.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
